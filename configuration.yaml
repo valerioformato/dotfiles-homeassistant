@@ -1,0 +1,21 @@
+default_config:
+tts:
+  - platform: google_translate
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+recorder:
+  purge_keep_days: 30
+  commit_interval: 3
+  db_url: postgresql://home-assistant:V4l3r10SB@postgres:5432/home-assistant?sslmode=disable
+http:
+  server_port: 30103
+influxdb:
+  ssl: false
+  api_version: 2
+  host: 192.168.2.176
+  port: 30115
+  token: IrWxsqX4pGImBXp1bMhE7FMIhGHvEhn_5lb798yTVMOvAxNks67vV5XaRWLEX4Vau3dAC9B1U-TgDliTPaEzmA==
+  organization: bakkoshome
+  bucket: homeassistant
+  measurement_attr: entity_id
