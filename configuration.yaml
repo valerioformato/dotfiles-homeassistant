@@ -1,4 +1,6 @@
 default_config:
+homeassistant:
+  customize: !include customize.yaml
 tts:
   - platform: google_translate
 automation: !include automations.yaml

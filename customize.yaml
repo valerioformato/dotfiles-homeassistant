@@ -1,0 +1,8 @@
+sensor.speedtest_download_2:
+  unit_of_measurement: 'Mbit/s'
+sensor.speedtest_upload_2:
+  unit_of_measurement: 'Mbit/s'
+sensor.speedtest_ping_2:
+  unit_of_measurement: 'ms'
+sensor.speedtest_jitter:
+  unit_of_measurement: 'ms'  
