@@ -2,10 +2,15 @@
   alias: Uso prolungato condizionatore camera da letto
   description: Quando il condizionatore e' acceso da piu' di 3 ore, avvisa l'utente
   triggers:
-  - entity_id: climate.daikin_camera_da_letto
-    to: 'on'
-    for: 03:00:00
+  - entity_id:
+    - climate.daikin_camera_da_letto
+    to:
+    for:
+      hours: 3
+      minutes: 0
+      seconds: 0
     trigger: state
+    from: 'off'
   conditions:
   - condition: time
     after: 08:00:00
@@ -21,12 +26,13 @@
   triggers:
   - entity_id:
     - climate.daikin_salotto
-    to: 'on'
+    to:
     for:
       hours: 3
       minutes: 0
       seconds: 0
     trigger: state
+    from: 'off'
   conditions:
   - condition: time
     after: 08:00:00
@@ -45,10 +51,38 @@
     - sensor.lavastoviglie_operation_state
     from: run
     to: finished
-  conditions: []
+  conditions:
+  - condition: time
+    after: 08:00:00
+    before: '23:50:00'
+    weekday:
+    - sun
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
   actions:
   - action: notify.alexa_media_echo_dot_salotto
     metadata: {}
     data:
       message: La lavastoviglie ha finito
+  mode: single
+- id: '1757923183242'
+  alias: Periodic speedtest
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    hours: /8
+  conditions: []
+  actions:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 20
+      milliseconds: 0
+  - action: ookla_speedtest.run_speedtest
+    metadata: {}
+    data: {}
   mode: single

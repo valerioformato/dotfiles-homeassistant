@@ -1,1 +1,13 @@
-{}
+run_speedtest:
+  alias: Run Speedtest
+  sequence:
+  - data: {}
+    target:
+      entity_id:
+      - sensor.speedtest_download
+      - sensor.speedtest_ping
+      - sensor.speedtest_upload
+    action: homeassistant.update_entity
+  mode: single
+  icon: mdi:speedometer
+  description: ''
