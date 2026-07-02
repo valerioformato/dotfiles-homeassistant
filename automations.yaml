@@ -16,7 +16,10 @@
     after: 08:00:00
     before: '23:00:00'
   actions:
-  - action: notify.alexa_media_echo_dot_camera
+  - action: notify.send_message
+    metadata: {}
+    target:
+      entity_id: notify.echo_dot_camera_speak
     data:
       message: Il condizionatore e' acceso da piu' di tre ore
   mode: single
@@ -38,7 +41,10 @@
     after: 08:00:00
     before: '23:00:00'
   actions:
-  - action: notify.alexa_media_echo_dot_salotto
+  - action: notify.send_message
+    metadata: {}
+    target:
+      entity_id: notify.echo_dot_salotto_speak
     data:
       message: Il condizionatore e' acceso da piu' di tre ore
   mode: single
@@ -64,17 +70,19 @@
     - fri
     - sat
   actions:
-  - action: notify.alexa_media_echo_dot_salotto
+  - action: notify.send_message
     metadata: {}
     data:
-      message: La lavastoviglie ha finito
+      message: La lavastoviglie ha terminato il programma
+    target:
+      entity_id: notify.echo_dot_salotto_announce
   mode: single
 - id: '1757923183242'
   alias: Periodic speedtest
   description: ''
   triggers:
-  - trigger: time_pattern
-    hours: /8
+  - trigger: homeassistant
+    event: start
   conditions: []
   actions:
   - delay:
@@ -85,4 +93,26 @@
   - action: ookla_speedtest.run_speedtest
     metadata: {}
     data: {}
+  mode: single
+- id: '1768815910053'
+  alias: Bedroom light color
+  description: Set WiZ light to 4000K on turn on
+  triggers:
+  - entity_id:
+    - light.luce_alessia
+    - light.luce_valerio
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: '{{ state_attr(trigger.entity_id, ''color_temp_kelvin'') != 4000
+      }}
+
+      '
+  actions:
+  - target:
+      entity_id: '{{ trigger.entity_id }}'
+    data:
+      color_temp_kelvin: 3000
+    action: light.turn_on
   mode: single

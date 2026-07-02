@@ -23,3 +23,5 @@ influxdb:
   organization: bakkoshome
   bucket: homeassistant
   measurement_attr: entity_id
+# logger:
+#   default: debug
